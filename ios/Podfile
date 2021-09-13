@@ -12,6 +12,8 @@ target 'KKWanAndroid' do
     :hermes_enabled => false
   )
 
+  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+
   target 'KKWanAndroidTests' do
     inherit! :complete
     # Pods for testing
