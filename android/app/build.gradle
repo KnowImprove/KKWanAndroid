@@ -145,6 +145,15 @@ android {
             include "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
         }
     }
+
+
+    // 进入android/app/build.gradle文件，添加如下内容：
+
+    project.ext.vectoricons = [
+            iconFontNames: [ 'MaterialIcons.ttf', 'EvilIcons.ttf' ]
+    ]
+    apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+
     signingConfigs {
         debug {
             storeFile file('debug.keystore')
