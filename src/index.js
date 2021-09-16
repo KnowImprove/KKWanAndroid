@@ -39,6 +39,7 @@ export default function App() {
           },
           tabBarActiveTintColor: "#106323",
           tabBarInactiveTintColor: "gray",
+          headerShown: false, //隐藏标题栏
         })}
       >
         <Tab.Screen
