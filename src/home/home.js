@@ -28,6 +28,11 @@ class Home extends Component {
           onLeftPress={() => navigation.toggleDrawer()}
           onRightPress={() => navigation.navigate("Search")}
         />
+
+        <View>
+          <Text>你好，我是首页</Text>
+        </View>
+
       </View>
     );
   }

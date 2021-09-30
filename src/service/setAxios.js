@@ -62,7 +62,7 @@ export function setAxios() {
       return Promise.reject(data.errorMsg || '请求失败');
     },
     err => {
-      console.log('err', err);
+      console.log('---err', err);
       if (err && err.response) {
         switch (err.response.status) {
           case 400:
