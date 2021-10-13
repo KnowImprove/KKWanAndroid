@@ -5,6 +5,8 @@ import mineScreen from "./home/mine";
 import weChatScreen from "./home/wechat";
 import projectScreen from "./home/project";
 import SearchScreen from "./home/SearchScreen";
+import WebViewScreen from "./component/WebViewScreen";
+import SearchArticleScreen from "./home/page/SearchArticleScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -67,6 +69,14 @@ function StackPage() {
         // }}
       />
       <Stack.Screen name="Search" component={SearchScreen} options={{
+        headerShown: false,
+      }} />
+
+      <Stack.Screen name="WebView" component={WebViewScreen} options={{
+        headerShown: false,
+      }} />
+
+      <Stack.Screen name="SearchArticle" component={SearchArticleScreen} options={{
         headerShown: false,
       }} />
 

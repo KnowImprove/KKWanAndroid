@@ -230,7 +230,7 @@ export function fetchCollectArticleMore(page) {
 export function fetchHomeAddCollect(id, index) {
   addCollectArticle(id)
     .then(res => {
-      showToast(i18n('Have been collected'));
+      showToast('已收藏');
       store.dispatch(getHomeAddCollectAction(index));
     })
     .catch(e => {});
