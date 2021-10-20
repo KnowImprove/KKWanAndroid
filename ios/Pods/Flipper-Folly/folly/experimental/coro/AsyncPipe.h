@@ -148,8 +148,6 @@ class AsyncPipe {
     }
   }
 
-  bool isClosed() const { return queue_.expired(); }
-
  private:
   using Queue =
       folly::coro::UnboundedQueue<folly::Try<T>, SingleProducer, true>;
@@ -268,8 +266,6 @@ class BoundedAsyncPipe {
 
   void close(exception_wrapper&& w) && { std::move(pipe_).close(std::move(w)); }
   void close() && { std::move(pipe_).close(); }
-
-  bool isClosed() const { return pipe_.isClosed(); }
 
  private:
   BoundedAsyncPipe(

@@ -96,13 +96,13 @@ export function getThemeColorDataSource() {
  */
 export function getDrawerData() {
   return [
-    {iconName: 'md-trending-up', title: i18n('my-points')},
-    {iconName: 'md-heart', title: i18n('my-collection')},
-    {iconName: 'md-globe', title: i18n('frequently-used-websites')},
-    {iconName: 'md-person', title: i18n('about-author')},
-    {iconName: 'md-share', title: i18n('share-app')},
-    {iconName: 'md-settings', title: i18n('settings')},
-    {iconName: 'md-power', title: i18n('logout')},
+    {iconName: 'md-trending-up', title: '我的积分'},
+    {iconName: 'md-heart', title: '我的收藏'},
+    // {iconName: 'md-globe', title: '常用网站'},
+    // {iconName: 'md-person', title: '关于作者'},
+    {iconName: 'md-share', title: '分享'},
+    // {iconName: 'md-settings', title: '设置'},
+    {iconName: 'md-power', title: '退出登录'},
   ];
 }
 

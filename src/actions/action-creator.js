@@ -117,6 +117,13 @@ export function getArticleLoadingAction(isShowLoading) {
   };
 }
 
+export function getHomeLoadingAction(isShowLoading) {
+  return {
+    type: actionTypes.FETCH_HOME_DATA_LOADING,
+    isShowLoading,
+  };
+}
+
 export function getOftenUsedWebsitesAction(websites) {
   return {
     type: actionTypes.FETCH_OFTEN_USED_WEBSITES,

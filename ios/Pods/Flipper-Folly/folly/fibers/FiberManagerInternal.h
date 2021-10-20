@@ -585,8 +585,8 @@ class FiberManager : public ::folly::Executor {
 
    private:
     FiberManager& fiberManager_;
-    void timeoutExpired() noexcept override { run(); }
-    void callbackCanceled() noexcept override {}
+    void timeoutExpired() noexcept { run(); }
+    void callbackCanceled() noexcept {}
   };
 
   FibersPoolResizer fibersPoolResizer_;

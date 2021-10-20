@@ -23,7 +23,7 @@
 namespace folly::coro {
 
 template <typename SemiAwaitable, typename Duration>
-Task<typename semi_await_try_result_t<SemiAwaitable>::element_type> timeout(
+Task<semi_await_result_t<SemiAwaitable>> timeout(
     SemiAwaitable semiAwaitable, Duration timeoutDuration, Timekeeper* tk) {
   CancellationSource cancelSource;
   folly::coro::Baton baton;

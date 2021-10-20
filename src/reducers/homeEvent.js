@@ -8,6 +8,7 @@ const initialStore = {
   isRenderFooter: false, // 是否渲染列表footer
   isFullData: false, // 是否加载完全部数据
   websites: [], // 常用网站数据
+  isShowLoading: false,
 };
 
 const home = (state = initialStore, action) => {
@@ -55,6 +56,11 @@ const home = (state = initialStore, action) => {
         ...state,
         dataSource: cancelCollectDataSource,
       };
+    case actionTypes.FETCH_HOME_DATA_LOADING:
+      return {
+        ...state,
+        isShowLoading: action.isShowLoading,
+      }
     default:
       return state;
   }

@@ -7,6 +7,7 @@ import {
   fetchHomeCancelCollect,
   fetchHomeList,
   fetchHomeListMore,
+  updateHomeLoading,
 } from "../actions";
 
 import NavBar from "../component/NavBar";
@@ -18,6 +19,8 @@ import { getRealDP as dp } from "../utils/screenUtil";
 import ListFooter from "../component/ListFooter";
 import { showToast } from "../utils/Utility";
 import { connect } from "react-redux";
+import LoadingView from "../component/LoadingView";
+
 
 class Home extends PureComponent {
   constructor(props) {
@@ -28,7 +31,9 @@ class Home extends PureComponent {
   }
 
   async componentDidMount() {
+    updateHomeLoading(true);
     await this.onFetchData();
+    updateHomeLoading(false);
   }
 
   async onFetchData() {
@@ -47,6 +52,17 @@ class Home extends PureComponent {
       return;
     }
     fetchHomeListMore(this.props.page);
+  }
+
+  needLogin = () => {
+    const { navigation, isLogin } = this.props;
+
+    if (isLogin) {
+      showToast("您已经登录了呢！")
+      return
+    }
+    //跳转登录
+    navigation.navigate("Login");
   }
 
   renderItem = ({ item, index }) => {
@@ -92,7 +108,9 @@ class Home extends PureComponent {
   };
 
   render() {
-    const { navigation, dataSource } = this.props;
+    const { navigation, dataSource,isShowLoading } = this.props;
+
+    const self = this
 
     return (
       <View style={globalStyles.container}>
@@ -101,7 +119,10 @@ class Home extends PureComponent {
           navigation={navigation}
           leftIcon="md-person"
           rightIcon="md-search"
-          onLeftPress={() => navigation.toggleDrawer()}
+          // onLeftPress={() => navigation.toggleDrawer()}
+          onLeftPress={() => {
+            self.needLogin()
+          }}
           onRightPress={() => navigation.navigate("Search")}
         />
         <CommonListView
@@ -114,6 +135,7 @@ class Home extends PureComponent {
           isRefreshing={this.state.isRefreshing}
           toRefresh={this.onRefresh}
         />
+        <LoadingView isShowLoading={isShowLoading} />
       </View>
     );
   }
@@ -136,6 +158,7 @@ const mapStateToProps = (state) => {
     isFullData: state.home.isFullData,
     isLogin: state.user.isLogin,
     themeColor: state.user.themeColor,
+    isShowLoading: state.home.isShowLoading,
     //   language: state.user.language,
   };
 };

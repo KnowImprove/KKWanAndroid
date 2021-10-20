@@ -7,6 +7,11 @@ import projectScreen from "./home/project";
 import SearchScreen from "./home/SearchScreen";
 import WebViewScreen from "./component/WebViewScreen";
 import SearchArticleScreen from "./home/page/SearchArticleScreen";
+import LoginScreen from "./home/page/LoginScreen";
+import RegisterScreen from "./home/page/RegisterScreen";
+import CollectScreen from "./home/page/CollectScreen";
+import CoinDetailScreen from "./home/page/CoinDetailScreen";
+
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -77,6 +82,22 @@ function StackPage() {
       }} />
 
       <Stack.Screen name="SearchArticle" component={SearchArticleScreen} options={{
+        headerShown: false,
+      }} />
+
+      <Stack.Screen name="Login" component={LoginScreen} options={{
+        headerShown: false,
+      }} />
+
+      <Stack.Screen name="Register" component={RegisterScreen} options={{
+        headerShown: false,
+      }} />
+
+      <Stack.Screen name="Collect" component={CollectScreen} options={{
+        headerShown: false,
+      }} />
+
+      <Stack.Screen name="CoinDetail" component={CoinDetailScreen} options={{
         headerShown: false,
       }} />
 

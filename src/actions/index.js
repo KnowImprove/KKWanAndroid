@@ -58,6 +58,7 @@ import {
   getMyCoinListMoreAction,
   getMyCoinInfoAction,
   getSwitchAPPLanguageAction,
+  getHomeLoadingAction,
 } from './action-creator';
 import {showToast} from '../utils/Utility';
 import AuthUtil from '../utils/AuthUtil';
@@ -166,6 +167,10 @@ export function fetchProjectTabs() {
 
 export function updateArticleLoading(isShowLoading) {
   store.dispatch(getArticleLoadingAction(isShowLoading));
+}
+
+export function updateHomeLoading(isShowLoading) {
+  store.dispatch(getHomeLoadingAction(isShowLoading));
 }
 
 export async function fetchOftenUsedWebsites() {

@@ -1,0 +1,6 @@
+module Pods_KKWanAndroid {
+  umbrella header "Pods-KKWanAndroid-umbrella.h"
+
+  export *
+  module * { export * }
+}

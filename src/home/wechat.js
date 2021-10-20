@@ -1,31 +1,73 @@
-import React, { Component } from 'react'
-import { Text, View,StyleSheet } from 'react-native'
+import React, { Component, PureComponent } from "react";
+import { Text, View, StyleSheet } from "react-native";
+
+import {
+  fetchHomeAddCollect,
+  fetchHomeBanner,
+  fetchHomeCancelCollect,
+  fetchHomeList,
+  fetchHomeListMore,
+} from "../actions";
+
+import NavBar from "../component/NavBar";
+import CommonListView from "../component/CommonListView";
+import ArticleItemRow from "../component/ArticleItemRow";
+import Banner from "../component/Banner";
+import globalStyles from "../utils/globalStyles";
+import { getRealDP as dp } from "../utils/screenUtil";
+import ListFooter from "../component/ListFooter";
+import { showToast } from "../utils/Utility";
+import { connect } from "react-redux";
+import ArticleTabComponent from "../component/ArticleTabComponent";
+import LoadingView from "../component/LoadingView";
+import {fetchWxArticleTabs, updateArticleLoading} from '../actions';
+
 
 /**
  * 微信公众号
  */
-export default class WeChat extends Component {
-    render() {
-        return (
-            <View style={styles.root}>
-                <Text>你好，我是公众号 、</Text>
-                <Text>你好，我是公众号 、</Text>
+class WeChat extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isRefreshing: false,
+    };
+  }
 
-                <Text>你好，我是公众号 、</Text>
+  componentDidMount() {
+    updateArticleLoading(true);
+    fetchWxArticleTabs();
+  }
 
-                <Text>你好，我是公众号 、</Text>
-
-                <Text>你好，我是公众号 、</Text>
-
-            </View>
-        )
-    }
+  render() {
+    const {navigation, articleTabs, isShowLoading} = this.props;
+    return (
+      <View style={globalStyles.container}>
+        <NavBar
+          title={"公众号"}
+          navigation={navigation}
+          leftIcon=""
+          rightIcon="md-search"
+          onLeftPress={() => {}}
+          //   onLeftPress={() => this.needLogin}
+          onRightPress={() => navigation.navigate("Search")}
+        />
+        <ArticleTabComponent
+          isWxArticle={true}
+          articleTabs={articleTabs}
+          navigation={navigation}
+        />
+        <LoadingView isShowLoading={isShowLoading} />
+      </View>
+    );
+  }
 }
 
-const styles = StyleSheet.create({
-    root:{
-        width:'100%',
-        height:'100%',
-        backgroundColor:'pink'
-    },
-})
+const mapStateToProps = state =>{
+    return {
+        articleTabs: state.wxArticle.articleTabs,
+        isShowLoading: state.wxArticle.isShowLoading,
+    };
+}
+
+export default connect(mapStateToProps)(WeChat);

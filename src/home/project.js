@@ -1,19 +1,46 @@
-import React, { Component } from 'react'
-import { Text, View,StyleSheet } from 'react-native'
+import React, { PureComponent } from "react";
+import { View } from "react-native";
+import { connect } from "react-redux";
+import NavBar from "../component/NavBar";
+import globalStyles from "../utils/globalStyles";
+import { fetchProjectTabs, updateArticleLoading } from "../actions";
+import ArticleTabComponent from "../component/ArticleTabComponent";
+import LoadingView from "../component/LoadingView";
 
-export default class Project extends Component {
-    render() {
-        return (
-            <View style={styles.root}>
-                <Text>project</Text>
-            </View>
-        )
-    }
+class Project extends PureComponent {
+  componentDidMount() {
+    updateArticleLoading(true);
+    fetchProjectTabs();
+  }
+
+  render() {
+    const { navigation, projectTabs, isShowLoading } = this.props;
+    return (
+      <View style={globalStyles.container}>
+        <NavBar
+          title={'项目'}
+          navigation={navigation}
+          leftIcon="md-person"
+          rightIcon="md-search"
+        //   onLeftPress={() => navigation.toggleDrawer()}
+          onRightPress={() => navigation.navigate("Search")}
+        />
+        <ArticleTabComponent
+          articleTabs={projectTabs}
+          navigation={navigation}
+        />
+        <LoadingView isShowLoading={isShowLoading} />
+      </View>
+    );
+  }
 }
 
-const styles = StyleSheet.create({
-    root:{
-        width:'100%',
-        height:'100%'
-    },
-})
+const mapStateToProps = state => {
+    return {
+      projectTabs: state.project.projectTabs,
+      isShowLoading: state.wxArticle.isShowLoading,
+      language: state.user.language,
+    };
+  };
+  
+  export default connect(mapStateToProps)(Project);

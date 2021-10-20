@@ -20,7 +20,6 @@
 
 #include <folly/experimental/observer/detail/Core.h>
 #include <folly/experimental/observer/detail/GraphCycleDetector.h>
-#include <folly/fibers/FiberManager.h>
 #include <folly/futures/Future.h>
 #include <folly/synchronization/SanitizeThread.h>
 
@@ -93,14 +92,12 @@ class ObserverManager {
 
     auto& instance = getInstance();
 
-    folly::fibers::runInMainContext([&] {
-      auto inManagerThread = std::exchange(inManagerThread_, true);
-      SCOPE_EXIT { inManagerThread_ = inManagerThread; };
+    auto inManagerThread = std::exchange(inManagerThread_, true);
+    SCOPE_EXIT { inManagerThread_ = inManagerThread; };
 
-      SharedMutexReadPriority::ReadHolder rh(instance.versionMutex_);
+    SharedMutexReadPriority::ReadHolder rh(instance.versionMutex_);
 
-      core->refresh(instance.version_);
-    });
+    core->refresh(instance.version_);
   }
 
   static void waitForAllUpdates();

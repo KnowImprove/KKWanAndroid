@@ -89,15 +89,16 @@ namespace detail {
 using folly::toAppend;
 
 template <typename Arg>
-auto appendObjectToString(std::string& str, const Arg* arg, int)
-    -> decltype(toAppend(std::declval<Arg>(), std::declval<std::string*>()), std::declval<void>()) {
-  ::folly::catch_exception(
+auto appendObjectToString(std::string& str, const Arg* arg, int) -> decltype(
+    toAppend(std::declval<Arg>(), std::declval<std::string*>()),
+    std::declval<void>()) {
+  ::folly::catch_exception<const std::exception&>(
       [&] { toAppend(*arg, &str); },
-      // If anything goes wrong in `toAppend()` fall back to
-      // appendRawObjectInfo()
-      ::folly::logging::appendRawObjectInfo<Arg>,
-      str,
-      arg);
+      [&](const std::exception&) {
+        // If anything goes wrong in `toAppend()` fall back to
+        // appendRawObjectInfo()
+        ::folly::logging::appendRawObjectInfo(str, arg);
+      });
 }
 
 template <typename Arg>
