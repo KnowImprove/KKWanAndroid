@@ -138,6 +138,19 @@ function HomePage() {
         tabBarActiveTintColor: "#106323",
         tabBarInactiveTintColor: "gray",
         headerShown: false, //隐藏标题栏
+        tabBarLabelStyle: {
+          fontSize:dp(17),//字体大小
+          margin:dp(0),
+          // backgroundColor: "#325423"
+        },
+        tabBarIconStyle : {
+          width:dp(20),
+          height:dp(25),
+          // backgroundColor:"#234"
+        },
+        tabBarStyle: {
+          height: dp(60)
+        },
       })}
     >
       <Tab.Screen
@@ -148,7 +161,7 @@ function HomePage() {
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons
               name={focused ? "home" : "home-outline"}
-              size={25}
+              size={dp(20)}
               color={color}
             />
           ),
@@ -163,7 +176,7 @@ function HomePage() {
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons
               name={focused ? "people" : "people-outline"}
-              size={25}
+              size={dp(20)}
               color={color}
             />
           ),
@@ -178,7 +191,7 @@ function HomePage() {
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons
               name={focused ? "document-text" : "document-text-outline"}
-              size={25}
+              size={dp(20)}
               color={color}
             />
           ),
@@ -193,7 +206,7 @@ function HomePage() {
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons
               name={focused ? "person" : "person-outline"}
-              size={25}
+              size={dp(20)}
               color={color}
             />
           ),
