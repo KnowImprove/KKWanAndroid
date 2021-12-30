@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     height: dp(80),
     margin: dp(20),
     borderColor: Color.ICON_GRAY,
-    fontSize: dp(20),
+    fontSize: dp(30),
     borderBottomWidth: dp(1),
     paddingLeft: dp(5),
     paddingRight: dp(50),

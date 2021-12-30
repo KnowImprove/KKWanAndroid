@@ -3,7 +3,13 @@ import {StatusBar, View} from 'react-native';
 import {Provider} from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
 import {pickBy, identity} from 'lodash';
+
+//不可左右滑动的navigator
 import AppNavigator from './src';
+
+//可左右滑动的navigator
+import AppNavigatorSwipe from './src/indexSwipe';
+
 import {setAxios} from './src/service/setAxios';
 import store from './src/store';
 import AuthUtil from './src/utils/AuthUtil';
@@ -56,7 +62,7 @@ class App extends PureComponent {
       <Provider store={store}>
         <View style={{flex: 1}}>
           <StatusBar barStyle={'light-content'} translucent={true} />
-          <AppNavigator />
+          <AppNavigatorSwipe />
           <Toast ref="toast" />
         </View>
       </Provider>
