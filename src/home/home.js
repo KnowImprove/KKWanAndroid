@@ -84,7 +84,7 @@ class Home extends PureComponent {
       case CodePush.SyncStatus.CHECKING_FOR_UPDATE:
         // this.setState({ syncMessage: "Checking for update." });
         console.log("-----Checking for update.");
-        showToast('Checking for update');
+        // showToast('Checking for update');
         break;
       case CodePush.SyncStatus.DOWNLOADING_PACKAGE:
         // this.setState({ syncMessage: "Downloading package." });
@@ -101,7 +101,7 @@ class Home extends PureComponent {
       case CodePush.SyncStatus.UP_TO_DATE:
         // this.setState({ syncMessage: "App up to date.", progress: false });
         console.log("-----App up to date.");
-        showToast('App up to date');
+        // showToast('App up to date');
         break;
       case CodePush.SyncStatus.UPDATE_IGNORED:
         // this.setState({ syncMessage: "Update cancelled by user.", progress: false });
@@ -114,7 +114,7 @@ class Home extends PureComponent {
       case CodePush.SyncStatus.UNKNOWN_ERROR:
         // this.setState({ syncMessage: "An unknown error occurred.", progress: false });
         console.log("-----An unknown error occurred.");
-        showToast('An unknown error occurred');
+        // showToast('An unknown error occurred');
         break;
     }
   }
