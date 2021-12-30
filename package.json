@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "bundle-and": "react-native bundle --entry-file index.js --platform android --dev false --bundle-output ./android/app/src/main/assets/index.android.bundle --assets-dest ./android/app/src/main/res/"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.1",
@@ -19,6 +20,7 @@
     "querystring": "^0.2.1",
     "react": "17.0.1",
     "react-native": "^0.65.1",
+    "react-native-code-push": "^7.0.4",
     "react-native-codegen": "^0.0.8",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-reanimated": "^1.13.3",

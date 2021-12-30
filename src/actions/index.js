@@ -259,7 +259,7 @@ export function fetchMyCollectCancelCollect(id, originId, index) {
 export function fetchMyCollectAddCollect(id, index) {
   addCollectArticle(id)
     .then(res => {
-      showToast(i18n('Have been collected'));
+      showToast("已收藏~");
       store.dispatch(getMyCollectAddCollectAction(index));
     })
     .catch(e => {});
@@ -269,7 +269,7 @@ export function fetchMyCollectAddCollect(id, index) {
 export function fetchSearchArticleAddCollect(id, index) {
   addCollectArticle(id)
     .then(res => {
-      showToast(i18n('Have been collected'));
+      showToast("已收藏~");
       store.dispatch(getSearchArticleAddCollectAction(index));
     })
     .catch(e => {});

@@ -21,6 +21,7 @@ import { showToast } from "../utils/Utility";
 import { connect } from "react-redux";
 import LoadingView from "../component/LoadingView";
 
+import CodePush from "react-native-code-push"; // 引入code-push
 
 class Home extends PureComponent {
   constructor(props) {
@@ -30,10 +31,97 @@ class Home extends PureComponent {
     };
   }
 
+  componentWillUnmount() {
+    CodePush.disallowRestart(); //禁止重启
+  }
+
   async componentDidMount() {
+    CodePush.allowRestart(); //在加载完了，允许重启
+
     updateHomeLoading(true);
+    this.syncImmediate(); //开始检查更新
     await this.onFetchData();
     updateHomeLoading(false);
+  }
+
+  /** Update pops a confirmation dialog, and then immediately reboots the app 一键更新，加入的配置项 */
+  syncImmediate() {
+    CodePush.sync(
+      {
+        // deploymentKey:'ay3Y1oC26mYI-T7TJ0WtawZEZsLG-n66xgXH6',
+        //安装模式
+        //ON_NEXT_RESUME 下次恢复到前台时
+        //ON_NEXT_RESTART 下一次重启时
+        //IMMEDIATE 马上更新
+        installMode: CodePush.InstallMode.IMMEDIATE,
+        updateDialog: {
+          //是否显示更新描述
+          appendReleaseDescription: true,
+          //更新描述的前缀。 默认为"Description"
+          descriptionPrefix: "更新内容：",
+          //强制更新按钮文字，默认为continue
+          mandatoryContinueButtonLabel: "立即更新",
+          //强制更新时的信息. 默认为"An update is available that must be installed."
+          mandatoryUpdateMessage: "必须更新后才能使用，",
+          //非强制更新时，按钮文字,默认为"ignore"
+          optionalIgnoreButtonLabel: "稍后",
+          //非强制更新时，确认按钮文字. 默认为"Install"
+          optionalInstallButtonLabel: "后台更新",
+          //非强制更新时，检查到更新的消息文本
+          optionalUpdateMessage: "有新版本了，是否更新？",
+          //Alert窗口的标题
+          title: "新版本",
+        },
+      },
+      this.codePushStatusDidChange.bind(this),
+      this.codePushDownloadDidProgress.bind(this)
+    );
+  }
+
+  // 监听更新状态
+  codePushStatusDidChange(syncStatus) {
+    switch (syncStatus) {
+      case CodePush.SyncStatus.CHECKING_FOR_UPDATE:
+        // this.setState({ syncMessage: "Checking for update." });
+        console.log("-----Checking for update.");
+        showToast('Checking for update');
+        break;
+      case CodePush.SyncStatus.DOWNLOADING_PACKAGE:
+        // this.setState({ syncMessage: "Downloading package." });
+        console.log("-----Downloading package.");
+        break;
+      case CodePush.SyncStatus.AWAITING_USER_ACTION:
+        // this.setState({ syncMessage: "Awaiting user action." });
+        console.log("-----Awaiting user action.");
+        break;
+      case CodePush.SyncStatus.INSTALLING_UPDATE:
+        // this.setState({ syncMessage: "Installing update." });
+        console.log("-----Installing update.");
+        break;
+      case CodePush.SyncStatus.UP_TO_DATE:
+        // this.setState({ syncMessage: "App up to date.", progress: false });
+        console.log("-----App up to date.");
+        showToast('App up to date');
+        break;
+      case CodePush.SyncStatus.UPDATE_IGNORED:
+        // this.setState({ syncMessage: "Update cancelled by user.", progress: false });
+        console.log("-----Update cancelled by user.");
+        break;
+      case CodePush.SyncStatus.UPDATE_INSTALLED:
+        // this.setState({ syncMessage: "Update installed and will be applied on restart.", progress: false });
+        console.log("-----Update installed and will be applied on restart.");
+        break;
+      case CodePush.SyncStatus.UNKNOWN_ERROR:
+        // this.setState({ syncMessage: "An unknown error occurred.", progress: false });
+        console.log("-----An unknown error occurred.");
+        showToast('An unknown error occurred');
+        break;
+    }
+  }
+
+  codePushDownloadDidProgress(progress) {
+    // this.setState({ progress });
+    console.log("------hot download progress : " + progress);
   }
 
   async onFetchData() {
@@ -52,18 +140,18 @@ class Home extends PureComponent {
       return;
     }
     fetchHomeListMore(this.props.page);
-  }
+  };
 
   needLogin = () => {
     const { navigation, isLogin } = this.props;
 
     if (isLogin) {
-      showToast("您已经登录了呢！")
-      return
+      showToast("您已经登录了呢！");
+      return;
     }
     //跳转登录
     navigation.navigate("Login");
-  }
+  };
 
   renderItem = ({ item, index }) => {
     const { navigation, isLogin } = this.props;
@@ -108,9 +196,9 @@ class Home extends PureComponent {
   };
 
   render() {
-    const { navigation, dataSource,isShowLoading } = this.props;
+    const { navigation, dataSource, isShowLoading } = this.props;
 
-    const self = this
+    const self = this;
 
     return (
       <View style={globalStyles.container}>
@@ -121,7 +209,7 @@ class Home extends PureComponent {
           rightIcon="md-search"
           // onLeftPress={() => navigation.toggleDrawer()}
           onLeftPress={() => {
-            self.needLogin()
+            self.needLogin();
           }}
           onRightPress={() => navigation.navigate("Search")}
         />

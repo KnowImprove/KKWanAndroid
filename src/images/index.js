@@ -1,5 +1,5 @@
 /**
- * Created by hjs on 2019-09-20
+ * 项目中用到的本地图片可以统一放在这里引用使用
  */
 const images = {
   logoIcon: require('./pig.jpg'),
